@@ -1,0 +1,173 @@
+@import 'tailwindcss';
+
+/*
+ * Self-hosted fonts from public/fonts (fixed URLs so the layout can preload them).
+ * The "Fallback" faces are Arial/Georgia resized to the same metrics, so text keeps
+ * its size and line breaks while the web fonts load: no jump on reload.
+ */
+@font-face {
+    font-family: 'Inter Variable';
+    font-style: normal;
+    font-display: swap;
+    font-weight: 100 900;
+    src: url('/fonts/inter-latin-wght-normal.woff2') format('woff2-variations');
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+    font-family: 'Inter Variable';
+    font-style: normal;
+    font-display: swap;
+    font-weight: 100 900;
+    src: url('/fonts/inter-latin-ext-wght-normal.woff2') format('woff2-variations');
+    unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+    font-family: 'Fraunces Variable';
+    font-style: normal;
+    font-display: swap;
+    font-weight: 100 900;
+    src: url('/fonts/fraunces-latin-opsz-normal.woff2') format('woff2-variations');
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+    font-family: 'Fraunces Variable';
+    font-style: normal;
+    font-display: swap;
+    font-weight: 100 900;
+    src: url('/fonts/fraunces-latin-ext-opsz-normal.woff2') format('woff2-variations');
+    unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+    font-family: 'Inter Fallback';
+    src: local('Arial'), local('ArialMT'), local('Helvetica Neue'), local('Helvetica');
+    size-adjust: 107.06%;
+    ascent-override: 90.49%;
+    descent-override: 22.53%;
+    line-gap-override: 0%;
+}
+@font-face {
+    font-family: 'Fraunces Fallback';
+    src: local('Georgia');
+    size-adjust: 105.62%;
+    ascent-override: 92.59%;
+    descent-override: 24.14%;
+    line-gap-override: 0%;
+}
+
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+    --font-sans: 'Inter Variable', 'Inter Fallback', ui-sans-serif, system-ui, sans-serif;
+    --font-display: 'Fraunces Variable', 'Fraunces Fallback', ui-serif, Georgia, serif;
+
+    /* Royal purple */
+    --color-royal-50: #f8f4fc;
+    --color-royal-100: #f0e7f8;
+    --color-royal-200: #e0cdf0;
+    --color-royal-300: #c7a5e2;
+    --color-royal-400: #a676cd;
+    --color-royal-500: #8a4fb6;
+    --color-royal-600: #713899;
+    --color-royal-700: #5c2b7e;
+    --color-royal-800: #4a2266;
+    --color-royal-900: #371a4c;
+    --color-royal-950: #1f0b2e;
+
+    /* Champagne gold */
+    --color-gold-50: #fcf8ee;
+    --color-gold-100: #f7eccf;
+    --color-gold-200: #efd89e;
+    --color-gold-300: #e5c06a;
+    --color-gold-400: #dbab47;
+    --color-gold-500: #c9922f;
+    --color-gold-600: #ab7325;
+    --color-gold-700: #8a5621;
+    --color-gold-800: #724621;
+    --color-gold-900: #613b20;
+
+    --color-ink: #1d1426;
+    --color-paper: #faf8f5;
+
+    --container-page: 80rem;
+
+    --shadow-soft: 0 1px 2px rgb(31 11 46 / 0.04), 0 8px 24px -8px rgb(31 11 46 / 0.10);
+    --shadow-lift: 0 2px 4px rgb(31 11 46 / 0.05), 0 22px 44px -16px rgb(31 11 46 / 0.22);
+
+    --animate-fade-up: fade-up 0.7s cubic-bezier(.2, .7, .2, 1) both;
+    @keyframes fade-up {
+        from { opacity: 0; transform: translateY(16px); }
+        to { opacity: 1; transform: none; }
+    }
+
+    /* Slow settle on the hero photo */
+    --animate-hero-zoom: hero-zoom 14s cubic-bezier(.2, .6, .2, 1) both;
+    @keyframes hero-zoom {
+        from { transform: scale(1.08); }
+        to { transform: scale(1); }
+    }
+}
+
+@layer base {
+    html { scroll-behavior: smooth; -webkit-tap-highlight-color: transparent; }
+    body { @apply bg-paper text-ink antialiased; font-feature-settings: 'cv11', 'ss01'; }
+    h1, h2, h3, .font-display { font-optical-sizing: auto; letter-spacing: -0.015em; }
+    [x-cloak] { display: none !important; }
+    ::selection { @apply bg-gold-200 text-royal-950; }
+    :focus-visible { @apply outline-2 outline-offset-2 outline-gold-400; }
+}
+
+@utility btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-full px-5 py-2.5 text-sm font-semibold transition duration-200 disabled:opacity-60 cursor-pointer;
+}
+
+@layer components {
+    .page { @apply mx-auto w-full max-w-page px-5 sm:px-8; }
+
+    .eyebrow { @apply text-xs font-semibold uppercase tracking-[0.18em] text-gold-600; }
+
+    .btn-primary { @apply btn bg-royal-800 text-white shadow-soft hover:bg-royal-700; }
+    .btn-gold { @apply btn bg-gold-400 text-royal-950 shadow-soft hover:bg-gold-300; }
+    .btn-ghost { @apply btn bg-royal-50 text-royal-800 hover:bg-royal-100; }
+    .btn-light { @apply btn bg-white/10 text-white backdrop-blur hover:bg-white/20; }
+    .btn-danger { @apply btn bg-red-50 text-red-700 hover:bg-red-100; }
+    .btn-sm { @apply px-3.5 py-1.5 text-xs; }
+
+    /* Inputs: soft filled fields, no hard borders */
+    .input { @apply block w-full rounded-xl border-0 bg-royal-50/60 px-4 py-3 text-sm text-ink ring-1 ring-transparent placeholder:text-royal-900/35 transition focus:bg-white focus:ring-2 focus:ring-gold-400 focus:outline-none; }
+    select.input { @apply appearance-none pr-10; background-image: url("data:image/svg+xml;utf8,<svg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 20 20%27 fill=%27%235c2b7e%27><path d=%27M5.3 7.3a1 1 0 0 1 1.4 0L10 10.6l3.3-3.3a1 1 0 1 1 1.4 1.4l-4 4a1 1 0 0 1-1.4 0l-4-4a1 1 0 0 1 0-1.4z%27/></svg>"); background-size: 1.1rem; background-position: right 0.9rem center; background-repeat: no-repeat; }
+    .label { @apply mb-1.5 block text-xs font-semibold text-royal-900/70; }
+    .error { @apply mt-1.5 text-xs font-medium text-red-600; }
+
+    /* Surfaces separate by contrast and shadow, never borders */
+    .card { @apply rounded-3xl bg-white shadow-soft; }
+
+    .chip { @apply inline-flex items-center rounded-full bg-royal-50 px-3 py-1 text-xs font-medium text-royal-800; }
+    .chip-gold { @apply inline-flex items-center rounded-full bg-gold-100 px-3 py-1 text-xs font-semibold text-gold-800; }
+
+    .prose-estate { @apply max-w-none text-[15px] leading-7 text-ink/80; }
+    .prose-estate p { @apply mb-4; }
+    .prose-estate h2, .prose-estate h3 { @apply mt-8 mb-3 font-display text-xl text-royal-950; }
+    .prose-estate ul { @apply mb-4 list-disc space-y-1 pl-5 marker:text-gold-500; }
+    .prose-estate ol { @apply mb-4 list-decimal space-y-1 pl-5; }
+    .prose-estate strong { @apply font-semibold text-ink; }
+    .prose-estate a { @apply font-medium text-royal-700 underline decoration-gold-400 underline-offset-4; }
+    .prose-estate blockquote { @apply my-6 rounded-2xl bg-royal-50 px-6 py-4 italic text-royal-900; }
+
+    /* Subtle gold hairline under section headings */
+    .rule-gold { @apply mt-4 h-0.5 w-12 rounded-full bg-gradient-to-r from-gold-400 to-gold-200; }
+
+    .scrollbar-none { scrollbar-width: none; }
+    .scrollbar-none::-webkit-scrollbar { display: none; }
+}
+
+/* Fade sections in as they scroll into view */
+.js [data-reveal] { opacity: 0; transform: translateY(18px); transition: opacity .7s cubic-bezier(.2,.7,.2,1), transform .7s cubic-bezier(.2,.7,.2,1); transition-delay: var(--delay, 0ms); }
+.js [data-reveal].revealed { opacity: 1; transform: none; }
+
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
+    .js [data-reveal] { opacity: 1; transform: none; }
+}
